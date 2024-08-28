@@ -13,8 +13,7 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        return response()->json(Equipo::all());
-        200; //muestra todos los equipos
+        return response()->json(Equipo::all());200; //muestra todos los equipos
     }
 
     /**
@@ -31,16 +30,14 @@ class EquipoController extends Controller
         ]);
 
         //guardar datos
-
-        $equipo = Equipo::created($datos);
+        
+        $equipo = Equipo::create($datos);
 
         //respuesta usuario
 
         return response()->json([
             'success' => true,
-            'message' => 'equipo creado exitosamente'
-        ],);
-        201;
+            'message' => 'equipo creado exitosamente' ],201); 
     }
 
     /**
