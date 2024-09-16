@@ -12,8 +12,10 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        //
+        $equipos = Equipo::all();
+        return view('welcome', compact('equipos'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
