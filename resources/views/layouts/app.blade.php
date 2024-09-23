@@ -15,12 +15,15 @@
     </header>
 
     <main>
+        <div class="bg-red-100 my-4 text-center">
+            <h1 class="text-lg font-semibold m-4 uppercase">@yield('cabecera')</h1>
+        </div>
 
         @yield('contenido')
 
     </main>
 
-    <footer>
+    <footer class="footer items-center p-4 bg-neutral text-neutral-content">
 
         @include('layouts.footer')
     </footer>

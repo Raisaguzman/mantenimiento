@@ -13,7 +13,7 @@ class EquipoController extends Controller
     public function index()
     {
         $equipos = Equipo::all();
-        return view('welcome', compact('equipos'));
+        return view('equipos.index', compact('equipos'));
     }
     
 
@@ -22,7 +22,7 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        //
+        return view('equipos.create');
     }
 
     /**
@@ -30,7 +30,8 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Equipo::create($request->all());
+        return redirect()->route('equipos.index');
     }
 
     /**
@@ -46,7 +47,7 @@ class EquipoController extends Controller
      */
     public function edit(Equipo $equipo)
     {
-        //
+        return view('equipos.edit', compact('equipo'));
     }
 
     /**
@@ -54,7 +55,8 @@ class EquipoController extends Controller
      */
     public function update(Request $request, Equipo $equipo)
     {
-        //
+        $equipo->update($request->all());
+        return redirect()->route('equipos.index');
     }
 
     /**
@@ -62,6 +64,7 @@ class EquipoController extends Controller
      */
     public function destroy(Equipo $equipo)
     {
-        //
+        $equipo->delete();
+        return redirect()->route('equipos.index');
     }
 }

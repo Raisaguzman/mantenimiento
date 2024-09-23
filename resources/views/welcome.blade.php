@@ -3,10 +3,18 @@
 @section('titulo', 'Página principal')
 
 @section('contenido')
-<h1 class="text-3xl font-bold underline text-blue-500">LISTA DE PRODUCTOS</h1>
-<ul>
-  @foreach ($equipos as $equipo)
-   <li>{{$equipo->nombre}} - Serie: {{$equipo->serie}} </li>
-  @endforeach
-</ul>
+<div
+  class="hero min-h-screen"
+  style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-neutral-content text-center">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">Bienvenido a Mantenimiento Hospitalario</h1>
+      <p class="mb-5">
+        Donde podras gestionar tus activos y mantenimientos de forma eficiente.
+      </p>
+      <button class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
 @endsection

@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
   //  return view('welcome');
 //});
 
+Route::view('/','welcome');
 Route::resource('equipos', App\Http\Controllers\EquipoController::class);
