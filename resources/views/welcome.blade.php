@@ -13,7 +13,7 @@
       <p class="mb-5">
         Donde podras gestionar tus activos y mantenimientos de forma eficiente.
       </p>
-      <button class="btn btn-primary">Get Started</button>
+      <a href="{{ route('equipos.index') }}" class="btn btn-primary">ver equipos</a>
     </div>
   </div>
 </div>

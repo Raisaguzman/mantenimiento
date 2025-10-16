@@ -15,7 +15,7 @@ class EquipoController extends Controller
         $equipos = Equipo::all();
         return view('equipos.index', compact('equipos'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,9 +37,10 @@ class EquipoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Equipo $equipo)
+    public function show($id)
     {
-        //
+        $equipo = Equipo::with(['cronogramas', 'reportesMantenimiento'])->findOrFail($id);
+        return view('equipos.show', compact('equipo'));
     }
 
     /**
@@ -67,4 +68,5 @@ class EquipoController extends Controller
         $equipo->delete();
         return redirect()->route('equipos.index');
     }
+
 }

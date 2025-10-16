@@ -36,6 +36,33 @@
                     </label>
                     <input type="number" name="serie" placeholder="Serie" class="input input-bordered" required />
                 </div>
+                
+                {{-- ubicación --}}
+                <div class="form-control">
+                    <label class="label">
+                    <span class="label-text">Ubicación</span>
+                    </label>
+                    <input type="text" name="ubicacion" placeholder="ubicacion" class="input input-bordered" required />
+                </div>
+
+                {{-- tipo --}}
+                <div class="form-control">
+                    <label class="label">
+                    <span class="label-text">Tipo</span>
+                    </label>
+                    <input type="text" name="tipo" placeholder="tipo" class="input input-bordered" required />
+                </div>
+
+
+                {{-- imagen --}}
+                <div class="form-control">
+                    <label class="label">
+                    <span class="label-text">Imagen del equipo</span>
+                    </label>
+                    <input type="file" name="imagen" class="file-input file-input-bordered w-full" accept="image/*" />
+                </div>
+                
+                                
                 {{-- botones --}}
                 <div class="form-control mt-6">
                     <button type="submit" class="btn btn-primary">Crear equipo</button>

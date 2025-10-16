@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EquipoController;
-
+use App\Http\Controllers\CronogramaMantenimientoController;
+use App\Http\Controllers\ReporteMantenimientoController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,18 +17,25 @@ use App\Http\Controllers\EquipoController;
 |
 */
 
-Route::view('/','welcome')->name('home');
+Route::view('/', 'welcome')->name('home');
 Route::resource('equipos', EquipoController::class)->middleware('auth');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('cronogramas', CronogramaMantenimientoController::class);
+    Route::get('/equipos/{id}', [EquipoController::class, 'show'])->name('equipos.show');
+    Route::resource('reportes', ReporteMantenimientoController::class);
+    Route::get('/reportes/{id}', [ReporteMantenimientoController::class, 'show'])->name('reportes.show');
+
+
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

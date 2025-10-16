@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('marca');
             $table->string('modelo');
             $table->string('serie');
+            $table->string('ubicacion');
+            $table->string('tipo');
+            $table->string('estado')->default('operativo');
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

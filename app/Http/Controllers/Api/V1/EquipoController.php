@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Equipo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EquipoController extends Controller
 {
@@ -27,17 +28,32 @@ class EquipoController extends Controller
             'marca' => ['required', 'string', 'max:100'],
             'modelo' => ['required', 'string', 'max:100'],
             'serie' => ['required', 'string', 'max:100'],
+            'ubicacion'=> ['required', 'string','max:100'],
+            'tipo' => 'required|string|max:50',
+            'imagen' => 'nullable|image|max:2048', // imagen opciona
         ]);
 
-        //guardar datos
-        
+        if ($request->hasFile('imagen')) {
+            try {
+                $path = $request->file('imagen')->store('equipo', 'public');
+                $datos['imagen'] = $path;
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al guardar la imagen: ' . $e->getMessage(),
+                ], 500);
+            }
+        }
+
+        //guardar datos        
         $equipo = Equipo::create($datos);
 
         //respuesta usuario
-
         return response()->json([
             'success' => true,
-            'message' => 'equipo creado exitosamente' ],201); 
+            'message' => 'Equipo creado exitosamente',
+            'data' => $equipo,
+        ], 201);
     }
 
     /**
@@ -48,7 +64,7 @@ class EquipoController extends Controller
         return response()->json($equipo, 200); //mostrar producto
     }
 
-    /**
+      /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Equipo $equipo)
@@ -59,8 +75,18 @@ class EquipoController extends Controller
             'marca' => ['required', 'string', 'max:100'],
             'modelo' => ['required', 'string', 'max:100'],
             'serie' => ['required', 'string', 'max:100'],
+            'ubicacion' => 'required|string|max:100',
+            'tipo' => 'required|string|max:50',
+            'imagen' => 'nullable|image|max:2048',
         ]);
 
+        if ($request->hasFile('imagen')) {
+            // Eliminar imagen anterior si existe
+            if ($equipo->imagen && Storage::disk('public')->exists($equipo->imagen)) {
+                Storage::disk('public')->delete($equipo->imagen);
+            }
+            $datos['imagen'] = $request->file('imagen')->store('equipos', 'public');
+        }
         //guardar datos
 
         $equipo->update($datos);
@@ -70,8 +96,8 @@ class EquipoController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'equipo actualizado exitosamente'
-        ],);
-        200;
+        ]);
+        
     }
 
     /**
@@ -81,13 +107,18 @@ class EquipoController extends Controller
     {
         //eliminar producto
 
+        if ($equipo->imagen && Storage::disk('public')->exists($equipo->imagen)) {
+            Storage::disk('public')->delete($equipo->imagen);
+        }
+    
         $equipo->delete();
 
         //respuesta al cliente
         return response()->json([
-            'succes' => true,
+            'success' => true,
             'message' => 'Equipo eliminado exitosamente',
-            204
+
         ]);
     }
+    
 }
